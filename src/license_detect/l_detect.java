@@ -22,11 +22,14 @@ import net.sourceforge.tess4j.util.LoadLibs;
 import net.sourceforge.tess4j.*;
 
 import com.asprise.ocr.Ocr;
+import com.lowagie.text.Image;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.*;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -39,8 +42,18 @@ public class l_detect {
 	static JFrame frame = new JFrame("License Plate Recognition");
 	static JPanel panel = new JPanel();
 
+
 	public static void assign_filename(String iname) {
 		filename = iname;
+		ImageIcon image = new ImageIcon("images/" + filename);
+		java.awt.Image imageicon = image.getImage(); // transform it 
+		java.awt.Image newimg = imageicon.getScaledInstance(300, 200,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+		image = new ImageIcon(newimg);  // transform it back
+		JLabel label = new JLabel("", image, JLabel.CENTER);
+		label.setPreferredSize(new Dimension(500,200));
+		panel.add(label);
+		frame.add(panel);
+		frame.revalidate();
 	}
 
 	public static void main(String[] args) {
