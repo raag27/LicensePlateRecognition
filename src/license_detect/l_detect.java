@@ -81,6 +81,8 @@ public class l_detect {
 			public void actionPerformed(ActionEvent e) {
 				assign_filename(tf.getText());
 				get_results();
+			
+				
 			}
 		});
 
@@ -151,16 +153,20 @@ public class l_detect {
 			String s = ocr.recognize(new File[] { new File("cropped/" + val
 					+ image_name) }, Ocr.RECOGNIZE_TYPE_TEXT,
 					Ocr.OUTPUT_FORMAT_PLAINTEXT, new Object[] {});
-			System.out.println("Asprise Result:  " + s);
-			JLabel jl = new JLabel("Asprise Result :");
-			jl.setBounds(100, 200, 100, 30);
-			final JTextField tf = new JTextField(s);
-			tf.setBounds(200, 150, 100, 30);
-			tf.setPreferredSize(new Dimension(300, 30));
-			panel.add(jl);
-			panel.add(tf);
-			frame.add(panel);
-			frame.revalidate();
+		//	System.out.println("Asprise Result:  " + s);
+			
+			if(i == carsArray.length - 1)
+			{
+				JLabel jl = new JLabel("Asprise Result :");
+				jl.setBounds(100, 200, 100, 30);
+				final JTextField tf = new JTextField(s);
+				tf.setBounds(200, 150, 100, 30);
+				tf.setPreferredSize(new Dimension(300, 30));
+				panel.add(jl);
+				panel.add(tf);
+				frame.add(panel);
+				frame.revalidate();
+			}
 			ocr.stopEngine();
 
 			File imageFile = new File("cropped/" + val + image_name);
@@ -171,15 +177,18 @@ public class l_detect {
 
 			try {
 				String result = instance.doOCR(imageFile);
-				System.out.println("Tesseract :" + result);
-				final JLabel jl_tes = new JLabel("Tesseract Result :");
-				final JTextField tf_tes = new JTextField(result);
-				tf_tes.setBounds(100, 180, 100, 30);
-				tf_tes.setPreferredSize(new Dimension(300, 30));
-				panel.add(jl_tes);
-				panel.add(tf_tes);
-				frame.add(panel);
-				frame.revalidate();
+				//System.out.println("Tesseract :" + result);
+				if(i == carsArray.length - 1)
+				{
+					final JLabel jl_tes = new JLabel("Tesseract Result :");
+					final JTextField tf_tes = new JTextField(result);
+					tf_tes.setBounds(100, 180, 100, 30);
+					tf_tes.setPreferredSize(new Dimension(300, 30));
+					panel.add(jl_tes);
+					panel.add(tf_tes);
+					frame.add(panel);
+					frame.revalidate();
+				}
 
 			} catch (TesseractException e) {
 				System.err.println(e.getMessage());
